@@ -1,0 +1,24 @@
+[LEVEL_SELECT] {
+    stretch: true
+
+    {
+        layout: vertical
+        alignment: center
+
+        [LEVELS] {
+            layout: vertical
+        }
+        [QUIT] {
+            @ref: MAIN_BUTTON
+            caption: QUIT
+            keybinding: ESCAPE
+        }
+    }
+}
+
+[@MAIN_BUTTON] {
+    type: button
+    size: 200, 40
+    margin: 5
+    alignment: center
+}

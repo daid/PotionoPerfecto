@@ -1,0 +1,63 @@
+{
+    color: #FFFFFF
+    font: gui/theme/ArchitectsDaughter-Regular.ttf
+    size: 20
+    [label] {
+        [menu_menu_title] {
+            font: gui/theme/ArchitectsDaughter-Regular.ttf
+            size: 150
+        }
+    }
+    [button.forground] {
+        font: gui/theme/ArchitectsDaughter-Regular.ttf
+        color.hovered: #808080
+        color.disabled: #808080
+    }
+    [button.background] {
+        image: gui/theme/pixel.png
+		color: #803300
+        color.hovered: #401900
+        color.disabled: #401900
+        sound: gui/theme/buttonDown.wav
+        sound.hovered: gui/theme/buttonUp.wav
+    }
+    [panel] {
+        image: gui/theme/note.svg
+		color: #803300
+		size: 50
+    }
+    [progressbar] {
+        image: gui/theme/note.svg
+		color: #338000
+    }
+    [progressbar.background] {
+        image: gui/theme/note.svg
+		color: #803300
+    }
+    [progressbar.green] {
+        image: gui/theme/note.svg
+		color: #338000
+    }
+    [progressbar.green.background] {
+        image: gui/theme/note.svg
+		color: #803300
+    }
+    [progressbar.red] {
+        image: gui/theme/note.svg
+		color: #aa2000
+    }
+    [progressbar.red.background] {
+        image: gui/theme/note.svg
+		color: #803300
+    }
+    [slider.forground] {
+        image: gui/theme/pixel.png
+    }
+    [slider.background] {
+        image: gui/theme/square.png
+		color: #FFFFFFA0
+		size: 8
+    }
+    [image] {
+    }
+}

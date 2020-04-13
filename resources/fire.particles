@@ -1,0 +1,24 @@
+{
+    texture: particle.png
+    origin: local
+    //renderType: additive
+    
+    [SPAWN] {
+        position: -1~1, -1~1, 0
+        frequency: 300
+        velocity: -1~1, 4~5, 0.1
+        lifetime: 0.5~1.0
+    }
+    [COLOR] {
+        0: #ffffff
+        0.25: #ffff00
+        0.5: #ff000040
+        0.8: #00000020
+        1: #00000000
+    }
+    [SIZE] {
+        0: 1
+        1: 3
+    }
+    acceleration: 0, 20, 0
+}
