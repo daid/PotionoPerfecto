@@ -8,7 +8,7 @@ bottle("narrow", 15).setPosition(15, 0).createFluid(1, 200)
 
 target = bottle("jar", 25).setPosition(0, -10)
 
-objective(target, "Mix green paint", 2, 400, 0.8)
+objective(target, "Mix green paint", 2, 396, 0.8)
 instructions([[Mix some green paint
 
 Combine the yellow and blue paint to mix green paint. And store it in the biggest container.

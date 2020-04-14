@@ -15,7 +15,7 @@
             margin: 0, 5
         }
 
-        [DONE] {
+        [FINISH] {
             type: button
             caption: Finish level
             size: 150, 30
@@ -35,6 +35,56 @@
             text.alignment: topleft
             text.size: 15
             stretch: true
+        }
+    }
+    
+    [RESULT] {
+        visible: false
+        type: panel
+        alignment: center
+        layout: vertical
+        padding: 40, 40, 25, 10
+        {
+            type: label
+            caption: RESULT
+            size: 200, 20
+        }
+        [RESULT_TEXT] {
+            type: label
+            caption: Great success.
+            text.alignment: left
+            size: 200, 20
+        }
+        [RESULT_TIME] {
+            type: label
+            caption: Time: 100.2 seconds
+            text.alignment: left
+            size: 200, 20
+        }
+        [RESULT_SCORE] {
+            type: label
+            caption: Score: 69%
+            text.alignment: left
+            size: 200, 20
+        }
+        {
+            layout: horizontal
+            margin: 0, 0, 10, 0
+
+            [DONE] {
+                type: button
+                caption: Done
+                size: 90, 30
+                style: button2
+                margin: 5, 0
+            }
+            [RETRY] {
+                type: button
+                caption: Retry
+                size: 90, 30
+                style: button2
+                margin: 5, 0
+            }
         }
     }
 }

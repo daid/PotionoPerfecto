@@ -12,6 +12,8 @@
         font: gui/theme/ArchitectsDaughter-Regular.ttf
         color.hovered: #808080
         color.disabled: #808080
+        [button2.forground] {
+        }
     }
     [button.background] {
         image: gui/theme/pixel.png
@@ -20,6 +22,10 @@
         color.disabled: #401900
         sound: gui/theme/buttonDown.wav
         sound.hovered: gui/theme/buttonUp.wav
+        [button2.background] {
+            color: #401900
+            color.hovered: #803300
+        }
     }
     [panel] {
         image: gui/theme/note.svg

@@ -20,6 +20,8 @@ void openLevelSelection()
             Scene::level_number = index;
             new Scene();
         });
+        if (index > 3)
+            widget->disable();
     };
     addLevel(1, "Glass of water");
     addLevel(2, "Mix paint");

@@ -3,10 +3,12 @@
 #include "levelSelection.h"
 
 #include <json11/json11.hpp>
+#include <array>
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/random.h>
 #include <sp2/tween.h>
+#include <sp2/engine.h>
 #include <sp2/io/resourceProvider.h>
 #include <sp2/scene/camera.h>
 #include <sp2/scene/particleEmitter.h>
@@ -86,7 +88,7 @@ public:
         auto velocity = getLinearVelocity2D();
         velocity *= velocityDamping;
         velocity.y += gravity;
-        double chaos = randomMotion + energyChaos * energy;
+        double chaos = std::max(0.0, randomMotion + energyChaos * energy);
         velocity += sp::Vector2d(sp::random(-chaos, chaos), sp::random(-chaos, chaos));
         setLinearVelocity(velocity);
 
@@ -384,9 +386,12 @@ public:
                 stddev[n] /= double(count);
         }
         double level = amounts[targetType] * double(count) / targetAmount;
+        if (mixRatio > 0.0)
+            level = std::min(level, amounts[targetType] / mixRatio / minimalLevel);
         if (energy < energyTarget)
             level = std::min(level, energy / energyTarget);
 
+        score = level;
         widget->setAttribute("value", sp::string(level, 3));
         isCompleted = level >= minimalLevel;
         if (isCompleted)
@@ -400,7 +405,10 @@ public:
         script_binding_class.bind("setPosition", &Bottle::luaSetPosition);
         script_binding_class.bind("createFluid", &Bottle::luaCreateFluid);
         script_binding_class.bindProperty("energyTarget", energyTarget);
+        script_binding_class.bindProperty("mixRatio", mixRatio);
     }
+
+    double score = 0.0;
 
     bool isCompleted = false;
 
@@ -408,6 +416,7 @@ public:
     double targetAmount = 400;
     double minimalLevel = 0.8;
     double energyTarget = 0.0;
+    double mixRatio = 0.0;
 
     sp::P<Bottle> bottle;
     sp::P<sp::gui::Widget> widget;
@@ -513,7 +522,34 @@ Scene::Scene()
     hud->getWidgetWithID("RESET")->setEventCallback([](sp::Variant v)
     {
         sp::Scene::get("MAIN").destroy();
+        sp::Engine::getInstance()->setGameSpeed(1.0);
         new Scene();
+    });
+    hud->getWidgetWithID("FINISH")->setEventCallback([this](sp::Variant v)
+    {
+        sp::Engine::getInstance()->setGameSpeed(0.0);
+        hud->getWidgetWithID("RESET")->hide();
+        hud->getWidgetWithID("FINISH")->hide();
+        
+        hud->getWidgetWithID("RESULT")->show();
+        hud->getWidgetWithID("RESULT_TIME")->setAttribute("caption", "Time: " + sp::string(totalTime, 1) + "sec");
+        
+        double score = 1.0;
+        for(auto objective : objectives)
+            score = std::min(objective->score, score);
+        hud->getWidgetWithID("RESULT_SCORE")->setAttribute("caption", "Score: " + sp::string(score * 100, 1) + "%");
+    });
+    hud->getWidgetWithID("RETRY")->setEventCallback([](sp::Variant v)
+    {
+        sp::Scene::get("MAIN").destroy();
+        sp::Engine::getInstance()->setGameSpeed(1.0);
+        new Scene();
+    });
+    hud->getWidgetWithID("DONE")->setEventCallback([](sp::Variant v)
+    {
+        sp::Scene::get("MAIN").destroy();
+        sp::Engine::getInstance()->setGameSpeed(1.0);
+        openLevelSelection();
     });
 
     {
@@ -570,6 +606,7 @@ void Scene::onUpdate(float delta)
     if (escape_key.getUp())
     {
         delete this;
+        sp::Engine::getInstance()->setGameSpeed(1.0);
         openLevelSelection();
         return;
     }
@@ -579,13 +616,15 @@ void Scene::onUpdate(float delta)
         hud->getWidgetWithID("INSTRUCTIONS")->hide();
     }
 
-    bool done = true;
+    bool done = sp::Engine::getInstance()->getGameSpeed() > 0.0;
     for(auto objective : objectives)
     {
         if (!objective->isCompleted)
             done = false;
     }
-    hud->getWidgetWithID("DONE")->setVisible(done);
+    hud->getWidgetWithID("FINISH")->setVisible(done);
+
+    totalTime += delta;
 }
 
 bool Scene::onPointerDown(sp::io::Pointer::Button button, sp::Ray3d ray, int id)

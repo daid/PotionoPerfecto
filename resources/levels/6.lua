@@ -25,7 +25,7 @@ bottle("test-tube", 35).setPosition(-10, -15).createFluid(2, 200)
 bottle("test-tube", 35).setPosition(  0, -15)
 target = bottle("potion", 25).setPosition( 20, -20)
 
-objective(target, "Make love potion", 6, 300, 0.5)
+objective(target, "Make love potion", 6, 200, 0.5)
 instructions([[Love potion recipe
 
 Ingredients:
@@ -39,6 +39,6 @@ Mix the love juice with the spring water in a 1:1 mixture.
 After the bubble gum mix has cooled, mix it with the spring water mix to produce the love potion.
 Be sure to bottle it in the potion bottle.
 
-(Successful love potion has a nice pink color)]])
+(Successful love potion has a soft pink color)]])
 
 fire(40, -25)

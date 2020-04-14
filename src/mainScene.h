@@ -30,6 +30,8 @@ public:
     sp::PList<Objective> objectives;
     sp::P<sp::gui::Widget> hud;
 
+    float totalTime = 0.0;
+
     static int level_number;
 };
 

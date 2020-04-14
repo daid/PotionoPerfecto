@@ -5,8 +5,17 @@
         alignment: top
         type: label
         theme_data: menu_menu_title
-        caption: Game Title
+        caption: Potiono
         scale_to_text: true
+        position: 0, -100
+    }
+    [TITLE] {
+        alignment: top
+        type: label
+        theme_data: menu_menu_title
+        caption: Perfecto
+        scale_to_text: true
+        position: 0, 0
     }
 
     {
@@ -64,6 +73,7 @@
             caption: Controls
             fill_width: true
             height: 40
+            visible: false
             
             [REBIND] {
                 type: button
@@ -120,6 +130,15 @@
 
         {
             @ref: CREDITS_TITLE
+            caption: Graphics:
+        }
+        {
+            @ref: CREDITS_LINE
+            caption: https://game-icons.net/
+        }
+
+        {
+            @ref: CREDITS_TITLE
             caption: Music:
         }
         {
@@ -146,7 +165,7 @@
         }
         {
             @ref: CREDITS_LINE
-            caption: https://fonts.google.com/specimen/Roboto
+            caption: https://fonts.google.com/specimen/Architects+Daughter
         }
 
         {
@@ -285,6 +304,7 @@
     fill_width: true
     height: 20
     layout: horizontal
+    visible: false
     [NAME] {
         type: label
         fill_height: true

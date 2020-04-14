@@ -15,9 +15,9 @@ gasTarget = bottle("aquarium", 25).setPosition( 30, -5)
 
 fire(5, -25)
 
-objective(basicBoil, "Orange result", 0, 150, 0.8).energyTarget = 0.5
-objective(modifyBoil, "Yellow result", 3, 150, 0.8)
-objective(gasTarget, "Purple result", 4, 150, 0.8)
+objective(basicBoil, "Orange result", 0, 145, 0.8).energyTarget = 0.5
+objective(modifyBoil, "Yellow result", 3, 145, 0.8)
+objective(gasTarget, "Purple result", 4, 145, 0.8)
 instructions([[Heat it up.
 
 Test what happens when we heat up various compoints.
