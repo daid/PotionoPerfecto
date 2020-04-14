@@ -117,6 +117,29 @@
             @ref: CREDITS_SECTION
             caption: Art and Assets
         }
+
+        {
+            @ref: CREDITS_TITLE
+            caption: Music:
+        }
+        {
+            @ref: CREDITS_LINE
+            caption: Secret of Tiki Island by Kevin MacLeod\
+                Link: https://incompetech.filmmusic.io/song/4331-secret-of-tiki-island\
+                License: http://creativecommons.org/licenses/by/4.0/
+        }
+        {
+            @ref: CREDITS_LINE
+            caption: Professor and the Plant by Kevin MacLeod\
+                Link: https://incompetech.filmmusic.io/song/4244-professor-and-the-plant\
+                License: http://creativecommons.org/licenses/by/4.0/
+        }
+        {
+            @ref: CREDITS_LINE
+            caption: Tenebrous Brothers Carnival - Act Two by Kevin MacLeod\
+                Link: https://incompetech.filmmusic.io/song/4472-tenebrous-brothers-carnival---act-two\
+                License: http://creativecommons.org/licenses/by/4.0/
+        }
         {
             @ref: CREDITS_TITLE
             caption: Fonts:

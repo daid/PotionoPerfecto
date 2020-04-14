@@ -6,6 +6,7 @@
 #include <sp2/io/fileSelectionDialog.h>
 #include <sp2/audio/sound.h>
 #include <sp2/audio/music.h>
+#include <sp2/audio/musicPlayer.h>
 #include <sp2/graphics/gui/scene.h>
 #include <sp2/graphics/gui/theme.h>
 #include <sp2/graphics/gui/loader.h>
@@ -234,6 +235,7 @@ int main(int argc, char** argv)
 #endif
     window->addLayer(scene_layer);
 
+    new sp::audio::MusicPlayer("music");
 #ifdef DEBUG
     openLevelSelection();
 #else

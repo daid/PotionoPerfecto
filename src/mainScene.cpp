@@ -36,6 +36,7 @@ public:
     double randomMotion = 1.0;
     double energyChaos = 3.0;
     int energyTransformInto = -1;
+    double velocityDamping = 0.0;
 };
 class FluidMix
 {
@@ -83,10 +84,7 @@ public:
         }
 
         auto velocity = getLinearVelocity2D();
-        if (amounts[1] > 0)
-            velocity *= 0.95;
-        //if (render_data.color.r > 0.6)
-        //    velocity *= 0.95;
+        velocity *= velocityDamping;
         velocity.y += gravity;
         double chaos = randomMotion + energyChaos * energy;
         velocity += sp::Vector2d(sp::random(-chaos, chaos), sp::random(-chaos, chaos));
@@ -111,7 +109,7 @@ public:
                     for(size_t m=0; m<amounts.size(); m++)
                     {
                         transfer += fluidMixes[n][m].mixingRate * fp->amounts[m] * delta;
-                        if (highEnergy && fp->highEnergy)
+                        if (highEnergy || fp->highEnergy)
                             transfer += fluidMixes[n][m].energyMixingRate * fp->amounts[m] * delta;
                     }
 
@@ -176,7 +174,8 @@ public:
         render_data.color = sp::Color(0, 0, 0, 1);
         gravity = 0.0;
         randomMotion = 0.0;
-        energyChaos = 0.0;
+        energyChaos = 1.0;
+        velocityDamping = 1.0;
         for(size_t n=0; n<amounts.size(); n++)
         {
             render_data.color.r += fluidTypes[n].color.r * amounts[n];
@@ -185,6 +184,7 @@ public:
             gravity += fluidTypes[n].gravity * amounts[n];
             randomMotion += fluidTypes[n].randomMotion * amounts[n];
             energyChaos += fluidTypes[n].energyChaos * amounts[n];
+            velocityDamping -= fluidTypes[n].velocityDamping * amounts[n];
         }
     }
 
@@ -197,6 +197,7 @@ private:
     double gravity = 0.0;
     double randomMotion = 0.0;
     double energyChaos = 0.0;
+    double velocityDamping = 1.0;
 };
 
 class Bottle : public sp::Node
@@ -437,6 +438,11 @@ static void luaFluidEnergyTransform(int index, int target)
     fluidTypes[index].energyTransformInto = target;
 }
 
+static void luaFluidVelocityDamping(int index, double damping)
+{
+    fluidTypes[index].velocityDamping = damping;
+}
+
 static void luaFluidMixRate(int index1, int index2, double rate)
 {
     fluidMixes[index1][index2].mixingRate = fluidMixes[index2][index1].mixingRate = rate;
@@ -542,6 +548,7 @@ Scene::Scene()
     script->setGlobal("fluidChaos", luaFluidChaos);
     script->setGlobal("fluidEnergyChaos", luaFluidEnergyChaos);
     script->setGlobal("fluidEnergyTransform", luaFluidEnergyTransform);
+    script->setGlobal("fluidVelocityDamping", luaFluidVelocityDamping);
     script->setGlobal("fluidMixRate", luaFluidMixRate);
     script->setGlobal("fluidEnergyMixRate", luaFluidEnergyMixRate);
     script->setGlobal("fluidMixesAs", luaFluidMixesAs);
