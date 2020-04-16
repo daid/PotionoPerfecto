@@ -512,6 +512,8 @@ static sp::P<Objective> luaObjective(sp::P<Bottle> bottle, sp::string label, int
 Scene::Scene()
 : sp::Scene("MAIN")
 {
+    sp::Scene::get("DEMO").destroy();
+
     auto camera = new sp::Camera(getRoot());
     camera->setOrtographic(sp::Vector2d(60, 40));
     setDefaultCamera(camera);
@@ -606,6 +608,7 @@ Scene::Scene()
 Scene::~Scene()
 {
     hud.destroy();
+    new DemoScene();
 }
 
 void Scene::onUpdate(float delta)
@@ -683,5 +686,49 @@ void Scene::onFixedUpdate()
         force = force * std::abs(diff.normalized().dot(force.normalized()));
         it.second.object->setLinearVelocity(it.second.object->getLinearVelocity2D() + force);
         it.second.object->setAngularVelocity(it.second.object->getAngularVelocity2D() + torque);
+    }
+}
+
+DemoScene::DemoScene()
+: sp::Scene("DEMO")
+{
+    auto camera = new sp::Camera(getRoot());
+    camera->setOrtographic(sp::Vector2d(60, 40));
+    setDefaultCamera(camera);
+
+    sp::Node* node = new sp::Node(camera);
+    node->render_data.type = sp::RenderData::Type::Transparent;
+    node->render_data.mesh = sp::MeshData::createQuad(sp::Vector2f(2.0, 2.0), sp::Vector2f(0, 1), sp::Vector2f(1, 0));
+    node->render_data.shader = sp::Shader::get("water.shader");
+    node->render_data.texture = water_texture;
+    node->render_data.order = -1;
+
+    fluidTypes = std::array<FluidType, FluidType::count>();
+    fluidMixes = std::array<std::array<FluidMix, FluidType::count>, FluidType::count>();
+
+    fluidTypes[0].color = sp::HsvColor(sp::random(0, 360), sp::random(50, 100), 100);
+    fluidTypes[1].color = sp::HsvColor(sp::random(0, 360), sp::random(50, 100), 100);
+    fluidTypes[2].color = sp::HsvColor(sp::random(0, 360), 100, 100);
+    fluidTypes[1].randomMotion = 4.0;
+
+    fluidMixes[0][2].mixingRate = fluidMixes[2][0].mixingRate = 0.01;
+
+    shaker = new Bottle(getRoot(), "narrow", 25);
+    shaker->setPosition(sp::Vector2d(-30, -20));
+    shaker->luaCreateFluid(0, 100);
+    for(int n=0; n<100; n++)
+        new FluidParticle(getRoot(), sp::Vector2d(sp::random(-33, -27), sp::random(-20, -10)), 2);
+
+    auto b = new Bottle(getRoot(), "flask", 25);
+    b->setPosition(sp::Vector2d(30, -20));
+    b->luaCreateFluid(1, 300);
+}
+
+void DemoScene::onFixedUpdate()
+{
+    f += sp::Engine::fixed_update_delta * 1.0;
+    if (f >= 0.0)
+    {
+        shaker->setAngularVelocity(std::sin(f) * 40.0);
     }
 }

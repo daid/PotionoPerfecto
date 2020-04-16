@@ -1,6 +1,7 @@
 #include <sp2/engine.h>
 #include <sp2/window.h>
 #include <sp2/logging.h>
+#include <sp2/random.h>
 #include <sp2/io/resourceProvider.h>
 #include <sp2/io/zipResourceProvider.h>
 #include <sp2/io/fileSelectionDialog.h>
@@ -10,6 +11,7 @@
 #include <sp2/graphics/gui/scene.h>
 #include <sp2/graphics/gui/theme.h>
 #include <sp2/graphics/gui/loader.h>
+#include <sp2/graphics/gui/widget/image.h>
 #include <sp2/graphics/scene/graphicslayer.h>
 #include <sp2/graphics/scene/basicnoderenderpass.h>
 #include <sp2/graphics/scene/collisionrenderpass.h>
@@ -236,11 +238,8 @@ int main(int argc, char** argv)
     window->addLayer(scene_layer);
 
     new sp::audio::MusicPlayer("music");
-#ifdef DEBUG
-    openLevelSelection();
-#else
+    new DemoScene();
     openMainMenu();
-#endif
 
     engine->run();
 

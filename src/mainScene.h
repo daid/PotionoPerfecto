@@ -35,5 +35,15 @@ public:
 
     static int level_number;
 };
+class DemoScene : public sp::Scene
+{
+public:
+    DemoScene();
+
+    void onFixedUpdate() override;
+private:
+    sp::P<Bottle> shaker;
+    double f = -3.0;
+};
 
 #endif//MAIN_SCENE_H

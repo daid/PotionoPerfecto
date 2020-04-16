@@ -27,7 +27,6 @@ void openLevelSelection()
     addLevel(4, "Stronger!");
     addLevel(5, "Explosive");
     addLevel(6, "Make love");
-    addLevel(7, "?");
 
     menu->getWidgetWithID("QUIT")->setEventCallback([=](sp::Variant v) mutable
     {

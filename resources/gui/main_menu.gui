@@ -3,19 +3,9 @@
 
     [TITLE] {
         alignment: top
-        type: label
-        theme_data: menu_menu_title
-        caption: Potiono
-        scale_to_text: true
-        position: 0, -100
-    }
-    [TITLE] {
-        alignment: top
-        type: label
-        theme_data: menu_menu_title
-        caption: Perfecto
-        scale_to_text: true
-        position: 0, 0
+        type: image
+        size: 500, 250
+        image: logo.png
     }
 
     {
