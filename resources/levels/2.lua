@@ -14,3 +14,4 @@ instructions([[Mix some green paint
 Combine the yellow and blue paint to mix green paint. And store it in the biggest container.
 
 You might need to stir/shake a little to create a better mix.]])
+parTime(18)

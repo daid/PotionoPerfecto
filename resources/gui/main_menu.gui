@@ -21,7 +21,6 @@
     {
         layout: vertical
         alignment: bottom
-        match_content_size: true
         
         [START] {
             @ref: MAIN_BUTTON
@@ -59,7 +58,6 @@
     [OPTIONS] {
         layout: vertical
         alignment: center
-        match_content_size: true
         
         [EFFECT_VOLUME] {
             @ref: OPTIONS_SLIDER LABEL=Effect volume:
@@ -88,7 +86,6 @@
     {
         layout: vertical
         alignment: bottom
-        match_content_size: true
         [BACK] {
             @ref: MAIN_BUTTON
             caption: BACK
@@ -98,7 +95,6 @@
 }
 
 [REBIND_MENU] {
-    match_content_size: true
     alignment: center
     layout: vertical
     {
@@ -122,7 +118,6 @@
         layout: vertical
         position: 0, 400
         alignment: top
-        match_content_size: true
         {
             @ref: CREDITS_SECTION
             caption: Art and Assets
@@ -268,7 +263,6 @@
     {
         layout: vertical
         alignment: bottom
-        match_content_size: true
         [BACK] {
             @ref: MAIN_BUTTON
             caption: BACK
@@ -284,7 +278,6 @@
     alignment: center
 }
 [@OPTIONS_SLIDER] {
-    match_content_size: true
     layout: vertical
     {
         size: 300, 30

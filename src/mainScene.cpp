@@ -490,6 +490,12 @@ static void luaInstructions(sp::string instructions)
     scene->hud->getWidgetWithID("INSTRUCTIONS_TEXT")->setAttribute("caption", instructions);
 }
 
+static void luaParTime(float parTime)
+{
+    sp::P<Scene> scene = sp::Scene::get("MAIN");
+    scene->parTime = parTime;
+}
+
 static sp::P<Objective> luaObjective(sp::P<Bottle> bottle, sp::string label, int type, double amount, double level)
 {
     sp::P<Scene> scene = sp::Scene::get("MAIN");
@@ -532,7 +538,7 @@ Scene::Scene()
         hud->getWidgetWithID("FINISH")->hide();
         
         hud->getWidgetWithID("RESULT")->show();
-        hud->getWidgetWithID("RESULT_TIME")->setAttribute("caption", "Time: " + sp::string(totalTime, 1) + "sec");
+        hud->getWidgetWithID("RESULT_TIME")->setAttribute("caption", "Time: " + sp::string(totalTime, 1) + "sec, Par: " + sp::string(parTime, 1));
         
         double score = 1.0;
         for(auto objective : objectives)
@@ -592,6 +598,7 @@ Scene::Scene()
     script->setGlobal("bottle", luaBottle);
     script->setGlobal("fire", luaFire);
     script->setGlobal("instructions", luaInstructions);
+    script->setGlobal("parTime", luaParTime);
     script->setGlobal("objective", luaObjective);
     script->load("levels/" + sp::string(level_number) + ".lua");
 }

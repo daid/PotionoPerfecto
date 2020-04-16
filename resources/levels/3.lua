@@ -23,3 +23,4 @@ instructions([[Heat it up.
 Test what happens when we heat up various compoints.
 
 Use the big jar to catch anything that escapes the containers during the experiment.]])
+parTime(28)

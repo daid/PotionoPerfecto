@@ -19,3 +19,4 @@ instructions([[Make some coffee.
 You know, boil water, put it on the coffee grind, and put it in the coffee pot.
 
 Make sure the result is hot.]])
+parTime(50)

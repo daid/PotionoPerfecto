@@ -42,3 +42,4 @@ Be sure to bottle it in the potion bottle.
 (Successful love potion has a soft pink color)]])
 
 fire(40, -25)
+parTime(90)

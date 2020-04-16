@@ -31,6 +31,7 @@ public:
     sp::P<sp::gui::Widget> hud;
 
     float totalTime = 0.0;
+    float parTime = 0.0;
 
     static int level_number;
 };
