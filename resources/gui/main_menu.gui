@@ -134,7 +134,14 @@
         }
         {
             @ref: CREDITS_LINE
-            caption: https://game-icons.net/
+            caption: Modified versions of:\
+                https://game-icons.net/1x1/lorc/bottled-bolt.html by Lorc\
+                https://game-icons.net/1x1/lorc/fizzing-flask.html by Lorc\
+                https://game-icons.net/1x1/starseeker/potion-of-madness.html by starseeker\
+                https://game-icons.net/1x1/delapouite/coffee-pot.html by Delapouite\
+                https://game-icons.net/1x1/delapouite/ice-cubes.html by Delapouite\
+                https://game-icons.net/1x1/lorc/test-tubes.html by Lorc\
+                https://game-icons.net/1x1/delapouite/aquarium.html by Delapoutie
         }
 
         {
