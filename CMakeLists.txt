@@ -7,4 +7,5 @@ set(CMAKE_MODULE_PATH "${SP2_PATH}/cmake" ${CMAKE_MODULE_PATH})
 find_package(SeriousProton2 REQUIRED)
 
 file(GLOB_RECURSE SOURCES src/*.cpp src/*.h)
+set(SP2_ICON "icon.png")
 serious_proton2_executable(${PROJECT_NAME} ${SOURCES})
