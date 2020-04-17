@@ -97,6 +97,15 @@ static void openOptionsMenu()
         menu->getWidgetWithID("MUSIC_VOLUME")->getWidgetWithID("VALUE")->setAttribute("caption", sp::string(v.getInteger()) + "%");
         sp::audio::Music::setVolume(v.getInteger());
     });
+    menu->getWidgetWithID("FULLSCREEN")->setEventCallback([=](sp::Variant v) mutable {
+        window->setFullScreen(!window->getFullScreen());
+    });
+#ifdef EMSCRIPTEN
+    menu->getWidgetWithID("FULLSCREEN")->hide();
+#endif
+#ifdef ANDROID
+    menu->getWidgetWithID("FULLSCREEN")->hide();
+#endif
     menu->getWidgetWithID("REBIND")->setEventCallback([=](sp::Variant v) mutable {
         menu.destroy();
         openRebindMenu();
@@ -216,7 +225,11 @@ int main(int argc, char** argv)
     sp::texture_manager.setDefaultSmoothFiltering(true);
 
     //Create a window to render on, and our engine.
+#ifdef ANDROID
+    window = new sp::Window(2.0/1.0);
+#else
     window = new sp::Window();
+#endif
 #if !defined(DEBUG) && !defined(EMSCRIPTEN)
     window->setFullScreen(true);
 #endif

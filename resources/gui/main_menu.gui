@@ -55,6 +55,11 @@
         [MUSIC_VOLUME] {
             @ref: OPTIONS_SLIDER LABEL=Music volume:
         }
+        [FULLSCREEN] {
+            @ref: MAIN_BUTTON
+            caption: Full screen toggle
+            alignment: center
+        }
         
         {
             type: label

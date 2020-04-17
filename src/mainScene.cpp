@@ -244,6 +244,9 @@ public:
                         {
                             contentsArea.position = sp::Vector2f(position.x, position.y - h);
                             contentsArea.size = sp::Vector2f(w, h);
+
+                            hitArea.size = contentsArea.size + sp::Vector2f(8, 8);
+                            hitArea.position = contentsArea.center() - hitArea.size * 0.5f;
                         }
                         else
                         {
@@ -272,7 +275,7 @@ public:
 
     bool hitTest(sp::Vector2f position)
     {
-        return contentsArea.contains(getGlobalTransform().inverse() * position);
+        return hitArea.contains(getGlobalTransform().inverse() * position);
     }
 
     sp::Vector2d getMovementCenter()
@@ -305,6 +308,7 @@ public:
     }
 
     sp::Rect2f contentsArea;
+    sp::Rect2f hitArea;
 };
 
 class Fire : public sp::Node
@@ -640,11 +644,18 @@ void Scene::onUpdate(float delta)
 bool Scene::onPointerDown(sp::io::Pointer::Button button, sp::Ray3d ray, int id)
 {
     sp::P<sp::Node> pull_object = nullptr;
+    double best = 1000.0;
     for(sp::P<Bottle> bottle : getRoot()->getChildren())
     {
         if (bottle && bottle->hitTest(sp::Vector2f(ray.start.x, ray.start.y)))
         {
-            pull_object = bottle;
+            auto vdiff = sp::Vector2d(ray.start.x, ray.start.y) - bottle->getMovementCenter();
+            auto diff = std::max(std::abs(vdiff.x), std::abs(vdiff.y));
+            if (diff < best)
+            {
+                pull_object = bottle;
+                best = diff;
+            }
         }
     }
 
